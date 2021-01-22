@@ -1,0 +1,42 @@
+<!-- formulaire -->
+<form [formGroup]='pnjForm' class="row g-3">
+  <!-- input name -->
+  <div class="col">
+    <div class="form-floating">
+      <input type="text" class="form-control border-primary" id="nomInput" placeholder="Input nom" formControlName='nom'>
+      <label for="nomInput">Nom</label>
+    </div>
+  </div>
+  <!-- menu déroulant archétype -->
+  <div class="col">
+    <div class="form-floating">
+      <select class="form-select border-primary" id="archetype-select" aria-label="Choix archetype" formControlName='archetype'>
+        <option [ngValue]="null">Aléatoire</option>
+        <option *ngFor="let archetype of archetypeList" [ngValue]="archetype.id">{{archetype.nom}}</option>
+      </select>
+      <label for="archetype-select">Archetype</label>
+    </div>
+  </div>
+  <!-- menu déroulant race -->
+  <div class="col">
+    <div class="form-floating">
+      <select class="form-select border-primary" id="race-select" aria-label="Choix race" formControlName='race'>
+        <option [ngValue]="null">Aléatoire</option>
+        <option *ngFor="let race of raceList" [ngValue]="race.id">{{race.nom}}</option>
+      </select>
+      <label for="race-select">Race</label>
+    </div>
+  </div>
+  <!-- choix niveau -->
+  <div class="col">
+    <div class="form">
+      <label for="levelInput">Niveau</label>
+      <input type="number" class="form-control border-primary" id="levelInput" placeholder="Choix niveaux" min="1" max="20" formControlName='niveau'>
+    </div>
+  </div>
+  <div class="col-1"></div><!-- espacement -->
+  <!-- validation et génération du pnj -->
+  <div class="col-3 mx-auto">
+    <button type="button" class="btn btn-outline-primary btn-lg" *ngIf="pnjForm.valid" (click)="generer()">Générer</button>
+  </div>
+</form>

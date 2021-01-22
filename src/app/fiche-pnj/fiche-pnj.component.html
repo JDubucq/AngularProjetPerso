@@ -1,0 +1,27 @@
+<div class="row">
+  <!-- liste des noms vertical -->
+  <div class="col-2">
+    <div class="list-group" id="list-tab" role="tablist">
+      <a *ngFor="let pnj of pnjList" class="list-group-item list-group-item-action border-primary" id={{pnj.id}} data-bs-toggle="list" href='#{{pnj.nom}}' role="tab" aria-controls="profile">{{pnj.nom}}</a>
+    </div>
+  </div>
+  <!-- fiche pnj -->
+  <div class="col-10">
+    <div class="tab-content" id="nav-tabContent">
+      <div *ngFor="let pnj of pnjList" class="tab-pane fade" id={{pnj.nom}} role="tabpanel" aria-labelledby="list-profile-list">
+        <div class="card border-primary mb-3">
+          <div class="card-body">
+            <app-modif [id]='pnj.id'></app-modif>
+            <app-description [id]='pnj.id'></app-description>
+            <br>
+            <p class="card-text" style="color:rgb(80, 80, 80); font-weight: bolder; padding-left: 25px;" *ngIf="pnj.archetype.capacites?.length || pnj.race.capacites?.length">Compétences</p>
+            <app-competence [id]='pnj.id'></app-competence>
+            <br>
+            <app-carac [id]='pnj.id'></app-carac>
+            <app-arme [id]='pnj.id'></app-arme>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

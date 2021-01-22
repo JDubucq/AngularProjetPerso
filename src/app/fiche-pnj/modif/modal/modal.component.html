@@ -1,0 +1,46 @@
+<div class="modal fade" id="modifierModal" tabindex="-1" aria-labelledby="modifierModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <!-- modal titre -->
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modifierModalLabel">Modifier {{pnj.nom}}</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                   <form [formGroup]='modifForm'>
+                     <!-- modal modifier nom -->
+                    <div class="form-floating">
+                      <input type="text" class="form-control border-primary" id="nomModifInput" placeholder={{pnj.nom}} formControlName='nom'>
+                      <label for="nomInput">Nouveau nom</label>
+                    </div>
+                    <!-- modal modifier niveau -->
+                    <div class="form-floating">
+                      <input type="number" class="form-control border-primary" id="levelInput" placeholder="Choix niveaux" min="1" max="20" formControlName='niveau'>
+                      <label for="levelModifInput">Nouveau niveau</label>
+                    </div>
+                    <!-- modal modifier force -->
+                    <div class="form-floating">
+                      <select class="form-select form-select-sm border-primary" id="forceSelect" aria-label="forces" formControlName='forces'>
+                        <option [ngValue]="null">Sélectionnez une nouvelle force</option>
+                        <option *ngFor="let force of forcesList" [ngValue]="force.id" >{{force.nom}}</option>
+                      </select>
+                      <label for="forceSelect">Force</label>
+                    </div>
+                    <!-- modal modifier faiblesse -->
+                    <div class="form-floating">
+                      <select class="form-select form-select-sm border-primary" id="faiblesseSelect" aria-label="faiblesse" formControlName='faiblesse'>
+                        <option [ngValue]="null">Sélectionnez une nouvelle faiblesse</option>
+                        <option *ngFor="let faiblesse of faiblesseList" [ngValue]="faiblesse.id" >{{faiblesse.nom}}</option>
+                      </select>
+                      <label for="forceSelect">Faiblesse</label>
+                    </div>
+                   </form>
+                </div>
+                <!-- modal boutons retour/sauvegarder -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Retour</button>
+                  <button type="button" class="btn btn-primary" *ngIf="modifForm.valid" (click)="modifierpnj()">Sauvegarder</button>
+                </div>
+              </div>
+            </div>
+          </div>

@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div class="col-2">
+      <p class="card-text" style="color:rgb(80, 80, 80); font-weight: bolder;">
+        Race<br>
+        Archétype<br>
+        Niveau<br>
+        Force<br>
+        Faiblesse<br>
+        CA<br>
+        PV<br>
+        Vitesse<br>
+        Perception passive<br>
+        Dangerosité<br>
+      </p>
+    </div>
+    <div class="col-2">
+      <p class="card-text">
+        {{pnj.race.nom}}<br>
+        {{pnj.archetype.nom}}<br>
+        {{pnj.niveau}}<br>
+        {{pnj.forces.nom}}<br>
+        {{pnj.faiblesse.nom}}<br>
+        {{pnj.archetype.ca}}<br>
+        <input type="number" name="pv" id="pv" value="{{pnj.archetype.pv}}" size="2"><br>
+        {{pnj.race.vitesse}}<br>
+        {{pnj.archetype.sens}}<br>
+        {{pnj.archetype.dangerosite}}<br>
+      </p>
+    </div>
+    <div class="col-2">
+      <p class="card-text" style="color:rgb(80, 80, 80); font-weight: bolder;">
+        <br>
+        <br>
+        <br>
+        Caractéristique :<br>
+        Caractéristique :<br>
+      </p>
+    </div>
+    <div class="col-1">
+      <p class="card-text">
+        <br>
+        <br>
+        <br>
+        {{pnj.forces.caracteristique}}<br>
+        {{pnj.faiblesse.caracteristique}}<br>
+      </p>
+    </div>
+  </div>
+</div>

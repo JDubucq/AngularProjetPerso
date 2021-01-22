@@ -1,0 +1,26 @@
+<div class="accordion" id="accordionExample" style="padding-left: 25px; padding-right: 25px;">
+  <div class="accordion-item" *ngFor="let capacites of pnj.race.capacites; let i=index">
+    <h2 class="accordion-header" [attr.id]="'headingOne_'+i">
+      <button class="accordion-button collapsed" style="font-weight:600;" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseOne_'+i" aria-expanded="true" [attr.aria-controls]="'collapseOne_'+i" style="color:dodgerblue; font-weight: 600;">
+        {{capacites.nom}}
+      </button>
+    </h2>
+    <div [attr.id]="'collapseOne_'+i" class="accordion-collapse collapse" [attr.aria-labelledby]="'headingOne_'+i" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        {{capacites.descriptif}}
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item" *ngFor="let capacites of pnj.archetype.capacites; let i=index">
+    <h2 class="accordion-header" [attr.id]="'headingTwo_'+i">
+      <button class="accordion-button collapsed" style="font-weight:600;" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseTwo_'+i" aria-expanded="false" [attr.aria-controls]="'collapseTwo_'+i" style="color:dodgerblue; font-weight: 600;">
+        {{capacites.nom}}
+      </button>
+    </h2>
+    <div [attr.id]="'collapseTwo_'+i" class="accordion-collapse collapse" [attr.aria-labelledby]="'headingTwo_'+i" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        {{capacites.descriptif}}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<table class="table table-sm table-bordered border-primary table-responsive caption-top vertical-align: middle;" style="text-align: center;">
+  <caption>Armes</caption>
+  <thead>
+    <tr class="table-primary table-bordered border-primary">
+      <th scope="col">Nom</th>
+      <th scope="col">Type</th>
+      <th scope="col">Bonus au toucher</th>
+      <th scope="col">Portée</th>
+      <th scope="col">Nombre de cible</th>
+      <th scope="col">Dégats</th>
+      <th scope="col">Type de dégats</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let arme of pnj.archetype.armes">
+      <td>{{arme.nom}}</td>
+      <td>{{arme.style}}</td>
+      <td>+{{arme.toucher}}</td>
+      <td>{{arme.portee}} m</td>
+      <td>{{arme.nombreDeCible}}</td>
+      <td>{{arme.degats}} ({{arme.nombreDeDegats}})</td>
+      <td>{{arme.typeDeDegats}}</td>
+    </tr>
+  </tbody>
+</table>

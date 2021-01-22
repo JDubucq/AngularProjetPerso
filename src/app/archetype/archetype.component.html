@@ -1,0 +1,216 @@
+<!--
+<hr>
+<form [formGroup]='pnjForm' class="row g-3">
+
+  <div class="col">
+    <div class="form-floating">
+      <input type="text" class="form-control border-primary" id="nomInput" placeholder="Input nom" formControlName='nom'>
+      <label for="nomInput">Nom</label>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="form-floating">
+      <select class="form-select border-primary" id="archetype-select" aria-label="Choix archetype" formControlName='archetype'>
+        <option [ngValue]="null">Aléatoire</option>
+        <option *ngFor="let archetype of archetypeList" [ngValue]="archetype.id">{{archetype.nom}}</option>
+      </select>
+      <label for="archetype-select">Archetype</label>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="form-floating">
+      <select class="form-select border-primary" id="race-select" aria-label="Choix race" formControlName='race'>
+        <option [ngValue]="null">Aléatoire</option>
+        <option *ngFor="let race of raceList" [ngValue]="race.id">{{race.nom}}</option>
+      </select>
+      <label for="race-select">Race</label>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="form">
+      <label for="levelInput">Niveau</label>
+      <input type="number" class="form-control border-primary" id="levelInput" placeholder="Choix niveaux" min="1" max="20" formControlName='niveau'>
+    </div>
+  </div>
+  <div class="col-1"></div>
+
+  <div class="col-3 mx-auto">
+    <button type="button" class="btn btn-outline-primary btn-lg" *ngIf="pnjForm.valid" (click)="generer()">Générer</button>
+  </div>
+</form>
+<hr>
+
+<div class="row">
+
+  <div class="col-2">
+    <div class="list-group" id="list-tab" role="tablist">
+      <a *ngFor="let pnj of pnjList" class="list-group-item list-group-item-action border-primary" id={{pnj.id}} data-bs-toggle="list" href='#{{pnj.nom}}' role="tab" aria-controls="profile">{{pnj.nom}}</a>
+    </div>
+  </div>
+
+  <div class="col-8">
+    <div class="tab-content" id="nav-tabContent">
+      <div *ngFor="let pnj of pnjList" class="tab-pane fade" id={{pnj.nom}} role="tabpanel" aria-labelledby="list-profile-list">
+
+        <div class="card border-primary mb-3">
+
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding: 5px;">
+            <button class="btn btn-outline-primary me-md-2 btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#modifierModal">Modifier</button>
+            <button class="btn btn-outline-danger btn-sm" type="button" (click)="supprimerpnj(pnj.id)">Supprimer</button>
+          </div>
+
+          <div class="modal fade" id="modifierModal" tabindex="-1" aria-labelledby="modifierModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modifierModalLabel">Modifier {{pnj.nom}}</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                   <form [formGroup]='modifForm'>
+
+                    <div class="form-floating">
+                      <input type="text" class="form-control border-primary" id="nomModifInput" placeholder={{pnj.nom}} formControlName='nom'>
+                      <label for="nomInput">Nouveau nom</label>
+                    </div>
+
+                    <div class="form-floating">
+                      <input type="number" class="form-control border-primary" id="levelInput" placeholder="Choix niveaux" min="1" max="20" formControlName='niveau'>
+                      <label for="levelModifInput">Nouveau niveau</label>
+                    </div>
+
+                    <div class="form-floating">
+                      <select class="form-select form-select-sm border-primary" id="forceSelect" aria-label="forces" formControlName='forces'>
+                        <option [ngValue]="null">Sélectionnez une nouvelle force</option>
+                        <option *ngFor="let force of forcesList" [ngValue]="force.id" >{{force.nom}}</option>
+                      </select>
+                      <label for="forceSelect">Force</label>
+                    </div>
+
+                    <div class="form-floating">
+                      <select class="form-select form-select-sm border-primary" id="faiblesseSelect" aria-label="faiblesse" formControlName='faiblesse'>
+                        <option [ngValue]="null">Sélectionnez une nouvelle faiblesse</option>
+                        <option *ngFor="let faiblesse of faiblesseList" [ngValue]="faiblesse.id" >{{faiblesse.nom}}</option>
+                      </select>
+                      <label for="forceSelect">Faiblesse</label>
+                    </div>
+                   </form>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Retour</button>
+                  <button type="button" class="btn btn-primary" *ngIf="modifForm.valid" (click)="modifierpnj()">Sauvegarder</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <p class="card-text">
+              <strong style="color:dodgerblue">Race :  </strong>{{pnj.race.nom}}<br>
+              <strong style="color:dodgerblue">Archétype :  </strong>{{pnj.archetype.nom}}<br>
+              <strong style="color:dodgerblue">Niveau : </strong>{{pnj.niveau}}<br>
+              <strong style="color:dodgerblue">Force : </strong>{{pnj.forces.nom}} <strong style="color:dodgerblue">Caractéristique : </strong>{{pnj.forces.caracteristique}}<br>
+              <strong style="color:dodgerblue">Faiblesse : </strong>{{pnj.faiblesse.nom}} <strong style="color:dodgerblue">Caractéristique : </strong>{{pnj.faiblesse.caracteristique}}<br>
+              <strong style="color:dodgerblue">CA : </strong>{{pnj.archetype.ca}}<br>
+              <strong style="color:dodgerblue">PV : </strong><input type="number" name="pv" id="pv" value="{{pnj.archetype.pv}}" size="2"><br>
+              <strong style="color:dodgerblue">Vitesse : </strong>{{pnj.race.vitesse}}<br>
+              <strong style="color:dodgerblue">Perception passive : </strong>{{pnj.archetype.sens}}<br>
+              <strong style="color:dodgerblue">Dangerosité : </strong>{{pnj.archetype.dangerosite}}<br>
+
+            </p>
+
+
+            <div class="accordion" id="accordionExample">
+              <strong *ngIf="pnj.archetype.capacites?.length || pnj.race.capacites?.length" style="color:dodgerblue">Compétences : </strong>
+              <div class="accordion-item" *ngFor="let capacites of pnj.race.capacites; let i=index">
+                <h2 class="accordion-header" [attr.id]="'headingOne_'+i">
+                  <button class="accordion-button collapsed" style="font-weight:600;" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseOne_'+i" aria-expanded="true" [attr.aria-controls]="'collapseOne_'+i" style="color:dodgerblue; font-weight: 600;">
+                    {{capacites.nom}}
+                  </button>
+                </h2>
+                <div [attr.id]="'collapseOne_'+i" class="accordion-collapse collapse" [attr.aria-labelledby]="'headingOne_'+i" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    {{capacites.descriptif}}
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item" *ngFor="let capacites of pnj.archetype.capacites; let i=index">
+                <h2 class="accordion-header" [attr.id]="'headingTwo_'+i">
+                  <button class="accordion-button collapsed" style="font-weight:600;" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseTwo_'+i" aria-expanded="false" [attr.aria-controls]="'collapseTwo_'+i" style="color:dodgerblue; font-weight: 600;">
+                    {{capacites.nom}}
+                  </button>
+                </h2>
+                <div [attr.id]="'collapseTwo_'+i" class="accordion-collapse collapse" [attr.aria-labelledby]="'headingTwo_'+i" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    {{capacites.descriptif}}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <table class="table table-sm table-bordered border-primary table-responsive caption-top vertical-align: middle;" style="text-align: center;">
+              <caption>Caractéristiques</caption>
+              <thead>
+                <tr class="table-primary table-bordered border-primary">
+                  <th scope="col">FOR</th>
+                  <th scope="col">DEX</th>
+                  <th scope="col">CON</th>
+                  <th scope="col">INT</th>
+                  <th scope="col">SAG</th>
+                  <th scope="col">CHA</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{pnj.archetype.forc+pnj.race.forc}}</td>
+                  <td>{{pnj.archetype.dex+pnj.race.dex}}</td>
+                  <td>{{pnj.archetype.con+pnj.race.con}}</td>
+                  <td>{{pnj.archetype.inte+pnj.race.inte}}</td>
+                  <td>{{pnj.archetype.sag+pnj.race.sag}}</td>
+                  <td>{{pnj.archetype.cha+pnj.race.cha}}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="table table-sm table-bordered border-primary table-responsive caption-top vertical-align: middle;" style="text-align: center;">
+              <caption>Armes</caption>
+              <thead>
+                <tr class="table-primary table-bordered border-primary">
+                  <th scope="col">Nom</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Bonus au toucher</th>
+                  <th scope="col">Portée</th>
+                  <th scope="col">Nombre de cible</th>
+                  <th scope="col">Dégats</th>
+                  <th scope="col">Type de dégats</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let arme of pnj.archetype.armes">
+                  <td>{{arme.nom}}</td>
+                  <td>{{arme.style}}</td>
+                  <td>+{{arme.toucher}}</td>
+                  <td>{{arme.portee}} m</td>
+                  <td>{{arme.nombreDeCible}}</td>
+                  <td>{{arme.degats}} ({{arme.nombreDeDegats}})</td>
+                  <td>{{arme.typeDeDegats}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+-->
+
+
+
